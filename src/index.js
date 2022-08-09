@@ -1,4 +1,4 @@
-// import './styles/main.scss';
-// import CreatToDo from './modules/domDisplay.js';
+import './styles/main.scss';
+import CreatToDo from './modules/domDisplay.js';
 
-// CreatToDo();
+CreatToDo();
