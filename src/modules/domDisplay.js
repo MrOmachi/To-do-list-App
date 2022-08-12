@@ -1,41 +1,41 @@
-// import Storage from './localStorage.js';
-// import returnImg from '../assets/return.svg';
-// import kebab from '../assets/kebab.svg';
+import Storage from './localStorage.js';
+import returnImg from '../assets/return.svg';
+import kebab from '../assets/kebab.svg';
 
-// console.log(returnImg);
-// document.getElementById('returnImg').src = returnImg;
-// class DomToDo {
-//   static displayToDo() {
-//     const todo = Storage.getToDo();
+console.log(returnImg);
+document.getElementById('returnImg').src = returnImg;
+class DomToDo {
+  static displayToDo() {
+    const todo = Storage.getToDo();
 
-//     todo.forEach((todo) => {
-//       DomToDo.addToDoList(todo);
-//     });
-//   }
+    todo.forEach((todo) => {
+      DomToDo.addToDoList(todo);
+    });
+  }
 
-//   static addToDoList(todo) {
-//     const ulContainer = document.getElementById('tbody');
-//     const row = document.createElement('tr');
+  static addToDoList(todo) {
+    const ulContainer = document.getElementById('tbody');
+    const row = document.createElement('tr');
 
-//     row.innerHTML = `
-//     <td> <input class='check'  id='checkBox' type="checkbox" /><td>
-//     <td><p class='paragragh'> ${todo.description}</p><td>
-//     <td class='hide'>${todo.id}</td>
-//     <td><img class='kebabImg' src="${kebab}" alt="" /></td>
-//     <td><a href="#" class='delete hide'>X</a><td>
-//     `;
-//     ulContainer.appendChild(row);
-//   }
+    row.innerHTML = `
+    <td> <input class='check'  id='checkBox' type="checkbox" /><td>
+    <td><p class='paragragh'> ${todo.description}</p><td>
+    <td class='hide'>${todo.id}</td>
+    <td><img class='kebabImg' src="${kebab}" alt="" /></td>
+    <td><a href="#" class='delete hide'>X</a><td>
+    `;
+    ulContainer.appendChild(row);
+  }
 
-//   static deleteTodo(el) {
-//     if (el.classList.contains('delete')) {
-//       el.parentElement.parentElement.remove();
-//     }
-//   }
+  static deleteTodo(el) {
+    if (el.classList.contains('delete')) {
+      el.parentElement.parentElement.remove();
+    }
+  }
 
-//   static clearField() {
-//     document.getElementById('todo-input').value = '';
-//   }
-// }
+  static clearField() {
+    document.getElementById('todo-input').value = '';
+  }
+}
 
-// export default DomToDo;
+export default DomToDo;
