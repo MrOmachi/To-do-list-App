@@ -43,8 +43,8 @@ document.getElementById('to-do-container').addEventListener('click', (e) => {
       'strike-through'
     );
   }
-  // Storage.remove(
-  //   e.target.parentElement.previousElementSibling.previousElementSibling
-  //     .textContent
-  // );
+  Storage.remove(
+    e.target.parentElement.previousElementSibling.previousElementSibling
+      .textContent
+  );
 });
