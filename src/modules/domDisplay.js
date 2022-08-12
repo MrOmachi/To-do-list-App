@@ -1,30 +1,41 @@
-import kebab from '../assets/kebab.svg';
-import toDoArr from './toDoArray.js';
+// import Storage from './localStorage.js';
+// import returnImg from '../assets/return.svg';
+// import kebab from '../assets/kebab.svg';
 
-const listItem = document.getElementById('list-item');
+// console.log(returnImg);
+// document.getElementById('returnImg').src = returnImg;
+// class DomToDo {
+//   static displayToDo() {
+//     const todo = Storage.getToDo();
 
-const CreatToDo = () => {
-  toDoArr.map((x) => {
-    const li = document.createElement('li');
-    const checkbox = document.createElement('input');
-    checkbox.classList.add('checkbox');
-    checkbox.type = 'checkbox';
+//     todo.forEach((todo) => {
+//       DomToDo.addToDoList(todo);
+//     });
+//   }
 
-    const paragraph = document.createElement('p');
-    paragraph.classList.add('paragraph');
+//   static addToDoList(todo) {
+//     const ulContainer = document.getElementById('tbody');
+//     const row = document.createElement('tr');
 
-    const remove = document.createElement('img');
-    remove.classList.add('remove');
-    remove.src = kebab;
-    paragraph.textContent = x.description;
+//     row.innerHTML = `
+//     <td> <input class='check'  id='checkBox' type="checkbox" /><td>
+//     <td><p class='paragragh'> ${todo.description}</p><td>
+//     <td class='hide'>${todo.id}</td>
+//     <td><img class='kebabImg' src="${kebab}" alt="" /></td>
+//     <td><a href="#" class='delete hide'>X</a><td>
+//     `;
+//     ulContainer.appendChild(row);
+//   }
 
-    li.appendChild(checkbox);
-    li.appendChild(paragraph);
-    li.appendChild(remove);
-    listItem.appendChild(li);
+//   static deleteTodo(el) {
+//     if (el.classList.contains('delete')) {
+//       el.parentElement.parentElement.remove();
+//     }
+//   }
 
-    return listItem;
-  });
-};
+//   static clearField() {
+//     document.getElementById('todo-input').value = '';
+//   }
+// }
 
-export default CreatToDo;
+// export default DomToDo;
