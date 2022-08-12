@@ -16,13 +16,24 @@ class DomToDo {
     const ulContainer = document.getElementById('tbody');
     const row = document.createElement('tr');
 
-    row.innerHTML = `
+    if (todo.completed) {
+      row.innerHTML = `
+    <td> <input class='check'  id='checkBox' type="checkbox" checked /><td>
+    <td><p class='paragragh strike-through'> ${todo.description}</p><td>
+    <td class='hide'>${todo.id}</td>
+    <td><img class='kebabImg' src="${kebab}" alt="" /></td>
+    <td><a href="#" class='delete'>X</a><td>
+    `;
+    } else {
+      row.innerHTML = `
     <td> <input class='check'  id='checkBox' type="checkbox" /><td>
     <td><p class='paragragh'> ${todo.description}</p><td>
     <td class='hide'>${todo.id}</td>
     <td><img class='kebabImg' src="${kebab}" alt="" /></td>
     <td><a href="#" class='delete'>X</a><td>
     `;
+    }
+
     ulContainer.appendChild(row);
   }
 
