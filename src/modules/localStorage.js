@@ -54,6 +54,20 @@ class Storage {
     });
   }
 
+  static checkboxNotCompleted(id) {
+    const todoL = Storage.getToDo();
+    id = Number(id.textContent);
+
+    todoL.forEach((x) => {
+      if (x.id === id) {
+        if (x.completed) {
+          x.completed = !x.completed;
+        }
+      }
+      localStorage.setItem('todoL', JSON.stringify(todoL));
+    });
+  }
+
   static removeCompleted() {
     const todoL = Storage.getToDo();
     const newArr = [];
@@ -66,12 +80,25 @@ class Storage {
         }
         return newArr;
       });
+
       Storage.resetId();
       window.location.reload();
     } else {
       localStorage.removeItem('todoL');
       window.location.reload();
     }
+  }
+
+  static delete(id) {
+    const todoL = Storage.getToDo();
+    const arr = [];
+
+    todoL.forEach((item) => {
+      if (item.id != id) {
+        arr.push(item);
+        localStorage.setItem('todoL', JSON.stringify(arr));
+      }
+    });
   }
 
   static editInput(id, e, tdHide, editPara) {
@@ -99,8 +126,6 @@ class Storage {
             todo.description = input.value;
             localStorage.setItem('todoL', JSON.stringify(todoL));
           });
-
-          // todo.description = newEditItem;
 
           tdHide.appendChild(input);
         }

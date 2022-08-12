@@ -42,7 +42,7 @@ document.getElementById('to-do-container').addEventListener('click', (e) => {
     e.target.parentElement.parentElement.children[4].textContent,
     e.target.parentElement,
     e.target.parentElement.parentElement,
-    e.target.parentElement.parentElement.children[2].children[0],
+    e.target.parentElement.parentElement.children[2].children[0]
   );
   // ---------------------
   // delete book from ui
@@ -51,7 +51,7 @@ document.getElementById('to-do-container').addEventListener('click', (e) => {
   if (e.target.classList.contains('check')) {
     Storage.checkboxCompleted(e.target.parentElement.parentElement.children[4]);
     e.target.parentElement.parentElement.children[2].children[0].classList.toggle(
-      'strike-through',
+      'strike-through'
     );
 
     // const todoL = Storage.getToDo();
@@ -63,6 +63,6 @@ document.getElementById('to-do-container').addEventListener('click', (e) => {
   // delete from storage
   Storage.remove(
     e.target.parentElement.previousElementSibling.previousElementSibling
-      .textContent,
+      .textContent
   );
 });
