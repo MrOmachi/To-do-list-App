@@ -11,7 +11,6 @@ class DomToDo {
       DomToDo.addToDoList(todo);
     });
   }
-
   static addToDoList(todo) {
     const ulContainer = document.getElementById('tbody');
     const row = document.createElement('tr');

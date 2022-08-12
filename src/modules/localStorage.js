@@ -87,8 +87,6 @@ class Storage {
             localStorage.setItem('todoL', JSON.stringify(todoL));
           });
 
-          // todo.description = newEditItem;
-
           tdHide.appendChild(input);
         }
       });
