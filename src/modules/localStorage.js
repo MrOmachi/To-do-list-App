@@ -46,26 +46,10 @@ class Storage {
 
   static removeCompleted() {
     const todoL = Storage.getToDo();
-    const newArr = [];
 
     const notCompleted = todoL.filter((x) => x.completed === false);
     localStorage.setItem('todoL', JSON.stringify(notCompleted));
     window.location.reload();
-
-    // if (todoL.length > 1) {
-    //   todoL.filter((x) => {
-    //     if (x.completed) {
-    //     } else {
-    //       newArr.push(x);
-    //       localStorage.setItem('todoL', JSON.stringify(newArr));
-    //     }
-    //     return newArr;
-    //   });
-    //   window.location.reload();
-    // } else {
-    //   localStorage.removeItem('todoL');
-    //   window.location.reload();
-    // }
   }
 
   static editInput(id, e, tdHide, editPara) {
