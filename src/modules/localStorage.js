@@ -40,14 +40,16 @@ class Storage {
     });
   }
 
-  static checkboxCompleted(id) {
+  static checkboxCompleted(id, status) {
     const todoL = Storage.getToDo();
     id = Number(id.textContent);
 
     todoL.forEach((x) => {
       if (x.id === id) {
-        if (!x.completed) {
-          x.completed = !x.completed;
+        if (status) {
+          x.completed = true;
+        } else {
+          x.completed = false;
         }
       }
       localStorage.setItem('todoL', JSON.stringify(todoL));
@@ -70,23 +72,10 @@ class Storage {
 
   static removeCompleted() {
     const todoL = Storage.getToDo();
-    const newArr = [];
-    if (todoL.length > 1) {
-      todoL.filter((x) => {
-        if (x.completed) {
-        } else {
-          newArr.push(x);
-          localStorage.setItem('todoL', JSON.stringify(newArr));
-        }
-        return newArr;
-      });
 
-      Storage.resetId();
-      window.location.reload();
-    } else {
-      localStorage.removeItem('todoL');
-      window.location.reload();
-    }
+    const notCompleted = todoL.filter((x) => x.completed === false);
+    localStorage.setItem('todoL', JSON.stringify(notCompleted));
+    window.location.reload();
   }
 
   static delete(id) {

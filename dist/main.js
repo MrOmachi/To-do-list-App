@@ -13,7 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./localStorage.js */ "./src/modules/localStorage.js");
-/* harmony import */ var _assets_kebab_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/kebab.svg */ "./src/assets/kebab.svg");
+/* harmony import */ var _assets_return_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/return.svg */ "./src/assets/return.svg");
+/* harmony import */ var _assets_kebab_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/kebab.svg */ "./src/assets/kebab.svg");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -22,6 +23,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
+
+document.getElementById('returnImg').src = _assets_return_svg__WEBPACK_IMPORTED_MODULE_1__;
 
 var DomToDo = /*#__PURE__*/function () {
   function DomToDo() {
@@ -41,7 +44,7 @@ var DomToDo = /*#__PURE__*/function () {
     value: function addToDoList(todo) {
       var ulContainer = document.getElementById('tbody');
       var row = document.createElement('tr');
-      row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" /><td>\n    <td><p class='paragragh'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_1__, "\" alt=\"\" /></td>\n    <td><a href=\"#\" class='delete hide'>X</a><td>\n    ");
+      row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" /><td>\n    <td><p class='paragragh'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_2__, "\" alt=\"\" /></td>\n    <td><a href=\"#\" class='delete hide'>X</a><td>\n    ");
       ulContainer.appendChild(row);
     }
   }, {
@@ -241,7 +244,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n.addBtn img {\n  width: 100px;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 320px;\n  padding: 0 20px;\n  margin: auto;\n  left: 0;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;AACF;;AAEA;EACE,yBAAA;AACF;;AAEA;EACE,YAAA;EACA,iBAAA;EACA,YAAA;EACA,aAAA;EACA,sBAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,kBAAA;EACA,6BAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;EACA,eAAA;EACA,YAAA;EACA,OAAA;EACA,QAAA;EACA,kBAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,aAAA;AACF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n.addBtn img {\n  width: 100px;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 320px;\n  padding: 0 20px;\n  margin: auto;\n  left: 0;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  height: 40px;\n  margin: auto;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 320px;\n  padding: 0 20px;\n  margin: auto;\n  left: 0;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;AACF;;AAEA;EACE,yBAAA;AACF;;AAEA;EACE,YAAA;EACA,iBAAA;EACA,YAAA;EACA,aAAA;EACA,sBAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,WAAA;EACA,uBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,kBAAA;EACA,6BAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,uBAAA;EACA,YAAA;EACA,YAAA;EACA,YAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;EACA,eAAA;EACA,YAAA;EACA,OAAA;EACA,QAAA;EACA,kBAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,aAAA;AACF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  height: 40px;\n  margin: auto;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 320px;\n  padding: 0 20px;\n  margin: auto;\n  left: 0;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -757,6 +760,16 @@ module.exports = styleTagTransform;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__.p + "kebab.svg";
+
+/***/ }),
+
+/***/ "./src/assets/return.svg":
+/*!*******************************!*\
+  !*** ./src/assets/return.svg ***!
+  \*******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "return.svg";
 
 /***/ })
 
