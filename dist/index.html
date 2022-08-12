@@ -9,16 +9,28 @@
     <main>
       <div class="container">
         <div class="input-container">
-          <label for="todo-input" id="todo-label" class="todo-label"
-            >Todays to do</label
-          >
-          <br />
-          <input id="todo-input" type="text" placeholder="Add to your list" />
+          <p>Todays to do</p>
+          <div>
+            <form action="#">
+              <input
+                id="todo-input"
+                type="text"
+                placeholder="Add to your list"
+                required
+              />
+              <button type="submit" id="addBtn">
+                <img src="./assets/return.svg" alt="" />
+              </button>
+            </form>
+          </div>
 
           <div class="to-do-list" id="to-do-container">
-            <ul id="list-item" class="list-item"></ul>
-            <button type="submit" class="clear-completed">
-              Clear all completed
+            <table>
+              <thead></thead>
+              <tbody class="tbody" id="tbody"></tbody>
+            </table>
+            <button type="button" id="completedBtn" class="completedBtn">
+              Completed taske
             </button>
           </div>
         </div>

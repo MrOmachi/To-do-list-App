@@ -7,7 +7,7 @@
 ## Built With
 
 - HTML, CSS, JavaScript
-- Git, GitHub, Webpack, Webpack-cli, webpack-dev-server
+- Git, GitHub, Webpack, Webpack-cli, webpack-dev-server.
 
 ## Getting Started
 

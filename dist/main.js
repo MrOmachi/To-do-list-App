@@ -12,64 +12,213 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _assets_kebab_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../assets/kebab.svg */ "./src/assets/kebab.svg");
-/* harmony import */ var _toDoArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDoArray.js */ "./src/modules/toDoArray.js");
+/* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./localStorage.js */ "./src/modules/localStorage.js");
+/* harmony import */ var _assets_kebab_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/kebab.svg */ "./src/assets/kebab.svg");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
 
-var listItem = document.getElementById('list-item');
 
-var CreatToDo = function CreatToDo() {
-  _toDoArray_js__WEBPACK_IMPORTED_MODULE_1__["default"].map(function (x) {
-    var li = document.createElement('li');
-    var checkbox = document.createElement('input');
-    checkbox.classList.add('checkbox');
-    checkbox.type = 'checkbox';
-    var paragraph = document.createElement('p');
-    paragraph.classList.add('paragraph');
-    var remove = document.createElement('img');
-    remove.classList.add('remove');
-    remove.src = _assets_kebab_svg__WEBPACK_IMPORTED_MODULE_0__;
-    paragraph.textContent = x.description;
-    li.appendChild(checkbox);
-    li.appendChild(paragraph);
-    li.appendChild(remove);
-    listItem.appendChild(li);
-    return listItem;
-  });
-};
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreatToDo);
+var DomToDo = /*#__PURE__*/function () {
+  function DomToDo() {
+    _classCallCheck(this, DomToDo);
+  }
+
+  _createClass(DomToDo, null, [{
+    key: "displayToDo",
+    value: function displayToDo() {
+      var todo = _localStorage_js__WEBPACK_IMPORTED_MODULE_0__["default"].getToDo();
+      todo.forEach(function (todo) {
+        DomToDo.addToDoList(todo);
+      });
+    }
+  }, {
+    key: "addToDoList",
+    value: function addToDoList(todo) {
+      var ulContainer = document.getElementById('tbody');
+      var row = document.createElement('tr');
+      row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" /><td>\n    <td><p class='paragragh'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_1__, "\" alt=\"\" /></td>\n    <td><a href=\"#\" class='delete hide'>X</a><td>\n    ");
+      ulContainer.appendChild(row);
+    }
+  }, {
+    key: "deleteTodo",
+    value: function deleteTodo(el) {
+      if (el.classList.contains('delete')) {
+        el.parentElement.parentElement.remove();
+      }
+    }
+  }, {
+    key: "clearField",
+    value: function clearField() {
+      document.getElementById('todo-input').value = '';
+    }
+  }]);
+
+  return DomToDo;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DomToDo);
 
 /***/ }),
 
-/***/ "./src/modules/toDoArray.js":
-/*!**********************************!*\
-  !*** ./src/modules/toDoArray.js ***!
-  \**********************************/
+/***/ "./src/modules/localStorage.js":
+/*!*************************************!*\
+  !*** ./src/modules/localStorage.js ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var toDoArr = [{
-  id: 1,
-  description: 'Complete daily Task',
-  completed: true
-}, {
-  id: 2,
-  description: 'Complete daily project',
-  completed: true
-}, {
-  id: 3,
-  description: 'Complete weekly restrospectives',
-  completed: true
-}, {
-  id: 4,
-  description: 'Complete monthly capestone',
-  completed: true
-}];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (toDoArr);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var Storage = /*#__PURE__*/function () {
+  function Storage() {
+    _classCallCheck(this, Storage);
+  }
+
+  _createClass(Storage, null, [{
+    key: "getToDo",
+    value: function getToDo() {
+      var todoL;
+
+      if (localStorage.getItem('todoL') === null) {
+        todoL = [];
+      } else {
+        todoL = JSON.parse(localStorage.getItem('todoL'));
+      }
+
+      return todoL;
+    }
+  }, {
+    key: "addTodo",
+    value: function addTodo(todo) {
+      var todoL = Storage.getToDo();
+      todoL.push(todo);
+      localStorage.setItem('todoL', JSON.stringify(todoL));
+    }
+  }, {
+    key: "remove",
+    value: function remove(id) {
+      var todoL = Storage.getToDo();
+      id = Number(id);
+      todoL.forEach(function (todo, i) {
+        if (todo.id === id) {
+          todoL.splice(i, 1);
+        }
+      });
+      localStorage.setItem('todoL', JSON.stringify(todoL));
+    }
+  }, {
+    key: "checkboxCompleted",
+    value: function checkboxCompleted(id) {
+      var todoL = Storage.getToDo();
+      id = Number(id.textContent);
+      todoL.forEach(function (x) {
+        if (x.id === id) {
+          if (!x.completed) {
+            x.completed = !x.completed;
+          }
+        }
+
+        localStorage.setItem('todoL', JSON.stringify(todoL));
+      });
+    }
+  }, {
+    key: "removeCompleted",
+    value: function removeCompleted() {
+      var todoL = Storage.getToDo();
+      var newArr = [];
+
+      if (todoL.length > 1) {
+        todoL.filter(function (x) {
+          if (x.completed) {} else {
+            newArr.push(x);
+            localStorage.setItem('todoL', JSON.stringify(newArr));
+          }
+
+          return newArr;
+        });
+        window.location.reload();
+      } else {
+        localStorage.removeItem('todoL');
+        window.location.reload();
+      }
+    }
+  }, {
+    key: "editInput",
+    value: function editInput(id, e, tdHide, editPara) {
+      if (e.children[0].classList.contains('kebabImg')) {
+        var todoL = Storage.getToDo();
+        id = Number(id);
+        todoL.forEach(function (todo) {
+          if (id === todo.id) {
+            var editItem = todo.description;
+            var edit = document.getElementsByName('edit')[0];
+
+            if (edit) {
+              edit.remove();
+            }
+
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'edit';
+            input.value = editItem;
+            input.classList.add('edit');
+            input.addEventListener('keypress', function () {
+              editPara.textContent = input.value;
+              todo.description = input.value;
+              localStorage.setItem('todoL', JSON.stringify(todoL));
+            }); // todo.description = newEditItem;
+
+            tdHide.appendChild(input);
+          }
+        });
+      }
+    }
+  }]);
+
+  return Storage;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Storage);
+
+/***/ }),
+
+/***/ "./src/modules/todoConstruct.js":
+/*!**************************************!*\
+  !*** ./src/modules/todoConstruct.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CreateToDo = /*#__PURE__*/_createClass(function CreateToDo(description, id, completed) {
+  _classCallCheck(this, CreateToDo);
+
+  this.description = description;
+  this.id = id;
+  this.completed = completed;
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateToDo);
 
 /***/ }),
 
@@ -92,7 +241,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 50%;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.list-item {\n  list-style: none;\n}\n\n.list-item li {\n  display: flex;\n  align-items: center;\n  gap: 20px;\n  padding: 10px 5px;\n  background-color: white;\n  border: solid #f6f6f6;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.remove {\n  margin-left: auto;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;AACF;;AAEA;EACE,yBAAA;AACF;;AAEA;EACE,UAAA;EACA,iBAAA;EACA,YAAA;EACA,aAAA;EACA,sBAAA;AACF;;AAEA;EACE,gBAAA;AACF;;AAEA;EACE,aAAA;EACA,mBAAA;EACA,SAAA;EACA,iBAAA;EACA,uBAAA;EACA,qBAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,iBAAA;AACF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 50%;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.list-item {\n  list-style: none;\n}\n\n.list-item li {\n  display: flex;\n  align-items: center;\n  gap: 20px;\n  padding: 10px 5px;\n  background-color: white;\n  border: solid #f6f6f6;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.remove {\n  margin-left: auto;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n.addBtn img {\n  width: 100px;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 320px;\n  padding: 0 20px;\n  margin: auto;\n  left: 0;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;AACF;;AAEA;EACE,yBAAA;AACF;;AAEA;EACE,YAAA;EACA,iBAAA;EACA,YAAA;EACA,aAAA;EACA,sBAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,kBAAA;EACA,6BAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;EACA,eAAA;EACA,YAAA;EACA,OAAA;EACA,QAAA;EACA,kBAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,aAAA;AACF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n.addBtn img {\n  width: 100px;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 320px;\n  padding: 0 20px;\n  margin: auto;\n  left: 0;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -725,9 +874,56 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.scss */ "./src/styles/main.scss");
 /* harmony import */ var _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/domDisplay.js */ "./src/modules/domDisplay.js");
+/* harmony import */ var _modules_todoConstruct_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/todoConstruct.js */ "./src/modules/todoConstruct.js");
+/* harmony import */ var _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/localStorage.js */ "./src/modules/localStorage.js");
 
 
-(0,_modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
+
+
+document.addEventListener('DOMContentLoaded', _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].displayToDo); // completed all task listen
+
+document.getElementById('completedBtn').addEventListener('click', function () {
+  _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].removeCompleted();
+}); // listen to checkbox
+
+document.querySelector('form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var todoL = _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].getToDo();
+  var toDoInput = document.getElementById('todo-input').value;
+  var id = todoL.length + 1;
+  var completed = false;
+  var todo = new _modules_todoConstruct_js__WEBPACK_IMPORTED_MODULE_2__["default"](toDoInput, id, completed); // add todo to dom
+
+  _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].addToDoList(todo); // Add todo to store
+
+  _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].addTodo(todo); // ClearField
+
+  _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].clearField();
+}); // event clear completed
+
+document.getElementById('completedBtn').addEventListener('click', function () {}); //  event delete book
+
+document.getElementById('to-do-container').addEventListener('click', function (e) {
+  // edit input
+  // Storage.editInput()
+  // ===========
+  _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].editInput(e.target.parentElement.parentElement.children[4].textContent, e.target.parentElement, e.target.parentElement.parentElement, e.target.parentElement.parentElement.children[2].children[0]); // ---------------------
+  // delete book from ui
+
+  _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteTodo(e.target); // checkbox checked
+
+  if (e.target.classList.contains('check')) {
+    _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].checkboxCompleted(e.target.parentElement.parentElement.children[4]);
+    e.target.parentElement.parentElement.children[2].children[0].classList.toggle('strike-through'); // const todoL = Storage.getToDo();
+    // todoL.forEach((todo) => {
+    //   todoL.completed = true;
+    //   localStorage.setItem('todoL', JSON.stringify(todoL));
+    // });
+  } // delete from storage
+
+
+  _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].remove(e.target.parentElement.previousElementSibling.previousElementSibling.textContent);
+});
 })();
 
 /******/ })()
