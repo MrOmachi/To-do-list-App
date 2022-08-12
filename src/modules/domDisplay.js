@@ -2,7 +2,6 @@ import Storage from './localStorage.js';
 import returnImg from '../assets/return.svg';
 import kebab from '../assets/kebab.svg';
 
-console.log(returnImg);
 document.getElementById('returnImg').src = returnImg;
 class DomToDo {
   static displayToDo() {
