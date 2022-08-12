@@ -73,11 +73,9 @@ class Storage {
   static removeCompleted() {
     const todoL = Storage.getToDo();
 
-
     const notCompleted = todoL.filter((x) => x.completed === false);
     localStorage.setItem('todoL', JSON.stringify(notCompleted));
     window.location.reload();
-
   }
 
   static delete(id) {
