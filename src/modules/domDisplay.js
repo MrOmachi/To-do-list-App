@@ -30,7 +30,9 @@ class DomToDo {
     <td><p class='paragragh'> ${todo.description}</p><td>
     <td class='hide'>${todo.id}</td>
     <td><img class='kebabImg' src="${kebab}" alt="" /></td>
+
     <td><a href="#" class='delete'>X</a><td>
+
     `;
     }
 
