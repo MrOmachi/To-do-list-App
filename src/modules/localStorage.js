@@ -94,7 +94,7 @@ class Storage {
     const arr = [];
 
     todoL.forEach((item) => {
-      if (item.id != id) {
+      if (item.id !== id) {
         arr.push(item);
         localStorage.setItem('todoL', JSON.stringify(arr));
       }
