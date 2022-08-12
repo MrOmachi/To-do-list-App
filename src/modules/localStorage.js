@@ -26,6 +26,7 @@ class Storage {
       }
     });
     localStorage.setItem('todoL', JSON.stringify(todoL));
+    Storage.resetId();
   }
 
   static resetId() {
