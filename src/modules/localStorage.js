@@ -28,6 +28,17 @@ class Storage {
     localStorage.setItem('todoL', JSON.stringify(todoL));
   }
 
+  static resetId() {
+    const todoL = Storage.getToDo();
+    const arr = [];
+
+    todoL.forEach((item) => {
+      const newId = { ...item, id: arr.length + 1 };
+      arr.push(newId);
+      localStorage.setItem('todoL', JSON.stringify(arr));
+    });
+  }
+
   static checkboxCompleted(id) {
     const todoL = Storage.getToDo();
     id = Number(id.textContent);
@@ -54,6 +65,7 @@ class Storage {
         }
         return newArr;
       });
+      Storage.resetId();
       window.location.reload();
     } else {
       localStorage.removeItem('todoL');
