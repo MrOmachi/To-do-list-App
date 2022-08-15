@@ -56,25 +56,12 @@ class Storage {
     });
   }
 
-  static checkboxNotCompleted(id) {
-    const todoL = Storage.getToDo();
-    id = Number(id.textContent);
-
-    todoL.forEach((x) => {
-      if (x.id === id) {
-        if (x.completed) {
-          x.completed = !x.completed;
-        }
-      }
-      localStorage.setItem('todoL', JSON.stringify(todoL));
-    });
-  }
-
   static removeCompleted() {
     const todoL = Storage.getToDo();
 
     const notCompleted = todoL.filter((x) => x.completed === false);
     localStorage.setItem('todoL', JSON.stringify(notCompleted));
+    Storage.resetId();
     window.location.reload();
   }
 

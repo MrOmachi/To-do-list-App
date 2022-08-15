@@ -44,7 +44,13 @@ var DomToDo = /*#__PURE__*/function () {
     value: function addToDoList(todo) {
       var ulContainer = document.getElementById('tbody');
       var row = document.createElement('tr');
-      row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" /><td>\n    <td><p class='paragragh'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_2__, "\" alt=\"\" /></td>\n    <td><a href=\"#\" class='delete hide'>X</a><td>\n    ");
+
+      if (todo.completed) {
+        row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" checked /><td>\n    <td><p class='paragragh strike-through'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_2__, "\" alt=\"\" /></td>\n    <td><a href=\"#\" class='delete'>X</a><td>\n    ");
+      } else {
+        row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" /><td>\n    <td><p class='paragragh'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_2__, "\" alt=\"\" /></td>\n\n    <td><a href=\"#\" class='delete'>X</a><td>\n\n    ");
+      }
+
       ulContainer.appendChild(row);
     }
   }, {
@@ -78,6 +84,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -120,15 +132,47 @@ var Storage = /*#__PURE__*/function () {
         }
       });
       localStorage.setItem('todoL', JSON.stringify(todoL));
+      Storage.resetId();
+    }
+  }, {
+    key: "resetId",
+    value: function resetId() {
+      var todoL = Storage.getToDo();
+      var arr = [];
+      todoL.forEach(function (item) {
+        var newId = _objectSpread(_objectSpread({}, item), {}, {
+          id: arr.length + 1
+        });
+
+        arr.push(newId);
+        localStorage.setItem('todoL', JSON.stringify(arr));
+      });
     }
   }, {
     key: "checkboxCompleted",
-    value: function checkboxCompleted(id) {
+    value: function checkboxCompleted(id, status) {
       var todoL = Storage.getToDo();
       id = Number(id.textContent);
       todoL.forEach(function (x) {
         if (x.id === id) {
-          if (!x.completed) {
+          if (status) {
+            x.completed = true;
+          } else {
+            x.completed = false;
+          }
+        }
+
+        localStorage.setItem('todoL', JSON.stringify(todoL));
+      });
+    }
+  }, {
+    key: "checkboxNotCompleted",
+    value: function checkboxNotCompleted(id) {
+      var todoL = Storage.getToDo();
+      id = Number(id.textContent);
+      todoL.forEach(function (x) {
+        if (x.id === id) {
+          if (x.completed) {
             x.completed = !x.completed;
           }
         }
@@ -140,22 +184,23 @@ var Storage = /*#__PURE__*/function () {
     key: "removeCompleted",
     value: function removeCompleted() {
       var todoL = Storage.getToDo();
-      var newArr = [];
-
-      if (todoL.length > 1) {
-        todoL.filter(function (x) {
-          if (x.completed) {} else {
-            newArr.push(x);
-            localStorage.setItem('todoL', JSON.stringify(newArr));
-          }
-
-          return newArr;
-        });
-        window.location.reload();
-      } else {
-        localStorage.removeItem('todoL');
-        window.location.reload();
-      }
+      var notCompleted = todoL.filter(function (x) {
+        return x.completed === false;
+      });
+      localStorage.setItem('todoL', JSON.stringify(notCompleted));
+      window.location.reload();
+    }
+  }, {
+    key: "delete",
+    value: function _delete(id) {
+      var todoL = Storage.getToDo();
+      var arr = [];
+      todoL.forEach(function (item) {
+        if (item.id !== id) {
+          arr.push(item);
+          localStorage.setItem('todoL', JSON.stringify(arr));
+        }
+      });
     }
   }, {
     key: "editInput",
@@ -181,8 +226,7 @@ var Storage = /*#__PURE__*/function () {
               editPara.textContent = input.value;
               todo.description = input.value;
               localStorage.setItem('todoL', JSON.stringify(todoL));
-            }); // todo.description = newEditItem;
-
+            });
             tdHide.appendChild(input);
           }
         });
@@ -244,7 +288,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  height: 40px;\n  margin: auto;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 320px;\n  padding: 0 20px;\n  margin: auto;\n  left: 0;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;AACF;;AAEA;EACE,yBAAA;AACF;;AAEA;EACE,YAAA;EACA,iBAAA;EACA,YAAA;EACA,aAAA;EACA,sBAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,WAAA;EACA,uBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,kBAAA;EACA,6BAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,uBAAA;EACA,YAAA;EACA,YAAA;EACA,YAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;EACA,eAAA;EACA,YAAA;EACA,OAAA;EACA,QAAA;EACA,kBAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,aAAA;AACF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  height: 40px;\n  margin: auto;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 320px;\n  padding: 0 20px;\n  margin: auto;\n  left: 0;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  height: 40px;\n  margin: auto;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 310px;\n  padding: 0 20px 0 5px;\n  margin: auto;\n  left: -30px;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;AACF;;AAEA;EACE,yBAAA;AACF;;AAEA;EACE,YAAA;EACA,iBAAA;EACA,YAAA;EACA,aAAA;EACA,sBAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,WAAA;EACA,uBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,kBAAA;EACA,6BAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,uBAAA;EACA,YAAA;EACA,YAAA;EACA,YAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;EACA,qBAAA;EACA,YAAA;EACA,WAAA;EACA,QAAA;EACA,kBAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,aAAA;AACF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  height: 40px;\n  margin: auto;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 310px;\n  padding: 0 20px 0 5px;\n  margin: auto;\n  left: -30px;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -893,47 +937,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-document.addEventListener('DOMContentLoaded', _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].displayToDo); // completed all task listen
-
+document.addEventListener('DOMContentLoaded', _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].displayToDo);
 document.getElementById('completedBtn').addEventListener('click', function () {
   _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].removeCompleted();
-}); // listen to checkbox
-
+});
 document.querySelector('form').addEventListener('submit', function (e) {
   e.preventDefault();
   var todoL = _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].getToDo();
   var toDoInput = document.getElementById('todo-input').value;
   var id = todoL.length + 1;
   var completed = false;
-  var todo = new _modules_todoConstruct_js__WEBPACK_IMPORTED_MODULE_2__["default"](toDoInput, id, completed); // add todo to dom
-
-  _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].addToDoList(todo); // Add todo to store
-
-  _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].addTodo(todo); // ClearField
-
+  var todo = new _modules_todoConstruct_js__WEBPACK_IMPORTED_MODULE_2__["default"](toDoInput, id, completed);
+  _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].addToDoList(todo);
+  _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].addTodo(todo);
   _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].clearField();
-}); // event clear completed
-
-document.getElementById('completedBtn').addEventListener('click', function () {}); //  event delete book
-
+});
 document.getElementById('to-do-container').addEventListener('click', function (e) {
-  // edit input
-  // Storage.editInput()
-  // ===========
-  _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].editInput(e.target.parentElement.parentElement.children[4].textContent, e.target.parentElement, e.target.parentElement.parentElement, e.target.parentElement.parentElement.children[2].children[0]); // ---------------------
-  // delete book from ui
-
-  _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteTodo(e.target); // checkbox checked
+  _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].editInput(e.target.parentElement.parentElement.children[4].textContent, e.target.parentElement, e.target.parentElement.parentElement, e.target.parentElement.parentElement.children[2].children[0]);
+  _modules_domDisplay_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteTodo(e.target);
 
   if (e.target.classList.contains('check')) {
-    _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].checkboxCompleted(e.target.parentElement.parentElement.children[4]);
-    e.target.parentElement.parentElement.children[2].children[0].classList.toggle('strike-through'); // const todoL = Storage.getToDo();
-    // todoL.forEach((todo) => {
-    //   todoL.completed = true;
-    //   localStorage.setItem('todoL', JSON.stringify(todoL));
-    // });
-  } // delete from storage
-
+    _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].checkboxCompleted(e.target.parentElement.parentElement.children[4], e.target.checked);
+    e.target.parentElement.parentElement.children[2].children[0].classList.toggle('strike-through');
+  }
 
   _modules_localStorage_js__WEBPACK_IMPORTED_MODULE_3__["default"].remove(e.target.parentElement.previousElementSibling.previousElementSibling.textContent);
 });
