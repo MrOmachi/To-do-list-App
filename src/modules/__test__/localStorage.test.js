@@ -1,4 +1,4 @@
-import Storage from '../localStorage';
+import Storage from '../localStorage.js';
 
 // eslint-disable-next-line func-names
 const localStorageMock = (function () {
@@ -25,7 +25,7 @@ const localStorageMock = (function () {
       return store;
     },
   };
-})();
+}());
 
 global.localStorage = localStorageMock;
 
@@ -57,7 +57,6 @@ describe('Task one: add and delete', () => {
     ];
     Storage.addTodo(mockTodo);
     Storage.addTodo(mockTodo2);
-    console.log(Storage.getToDo());
     expect(Storage.getToDo()).toEqual(expected);
   });
 
@@ -69,9 +68,7 @@ describe('Task one: add and delete', () => {
         completed: false,
       },
     ];
-    console.log(Storage.getToDo());
     Storage.remove(2);
-    console.log(Storage.getToDo());
     expect(Storage.getToDo()).toStrictEqual(expected);
   });
 });
