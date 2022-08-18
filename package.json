@@ -19,6 +19,11 @@
   "bugs": {
     "url": "https://github.com/MrOmachi/webpack-broilerplate/issues"
   },
+  "jest": {
+    "globals": {
+      "window": {}
+    }
+  },
   "homepage": "https://MrOmachi.github.io/To-do-list-App.git",
   "devDependencies": {
     "@babel/core": "^7.18.10",
