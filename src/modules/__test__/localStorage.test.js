@@ -1,4 +1,5 @@
 import Storage from '../localStorage';
+jest.mock('../localStorage');
 
 describe('task 1', () => {
   test('Add a list item', () => {
@@ -17,9 +18,9 @@ describe('task 1', () => {
     ];
 
     //Act
-    const output = Storage.addTodo(todo);
+    Storage.addTodo(todo);
 
     //Assert
-    expected(output).toBeEqual(expected);
+    expect(Storage.addTodo(todo)).toBe(expected);
   });
 });
