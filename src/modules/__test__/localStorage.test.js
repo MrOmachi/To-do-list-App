@@ -1,26 +1,43 @@
 import Storage from '../localStorage';
-jest.mock('../localStorage');
+import CreateToDo from '../todoConstruct';
 
-describe('task 1', () => {
-  test('Add a list item', () => {
-    const todo = {
-      index: 1,
-      describe: 'first task',
-      completed: false,
-    };
+// eslint-disable-next-line func-names
+const localStorageMock = (function () {
+  let store = {};
 
-    const expected = [
-      {
-        index: 1,
-        describe: 'first task',
-        completed: false,
-      },
-    ];
+  return {
+    getItem(key) {
+      return store[key];
+    },
 
-    //Act
-    Storage.addTodo(todo);
+    setItem(key, value) {
+      store[key] = value;
+    },
 
-    //Assert
-    expect(Storage.addTodo(todo)).toBe(expected);
-  });
+    clear() {
+      store = {};
+    },
+
+    removeItem(key) {
+      delete store[key];
+    },
+
+    getAll() {
+      return store;
+    },
+  };
+}());
+
+global.localStorage = localStorageMock;
+
+test('data is added into local storage', () => {
+  const mockTodo = new CreateToDo('json data', 1, false);
+
+  const expected = [{
+    id: 1,
+    description: 'json data',
+    completed: false,
+  }];
+  Storage.addTodo(mockTodo);
+  expect(Storage.getToDo()).toEqual(expected);
 });

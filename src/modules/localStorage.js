@@ -1,7 +1,7 @@
 class Storage {
   static getToDo() {
     let todoL;
-    if (localStorage.getItem('todoL') === null) {
+    if (!localStorage.getItem('todoL')) {
       todoL = [];
     } else {
       todoL = JSON.parse(localStorage.getItem('todoL'));
