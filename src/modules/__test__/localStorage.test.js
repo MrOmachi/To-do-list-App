@@ -29,47 +29,49 @@ const localStorageMock = (function () {
 
 global.localStorage = localStorageMock;
 
-test('data is added into local storage', () => {
-  const mockTodo = {
-    description: 'json data',
-    id: 1,
-    completed: false,
-  };
-
-  const mockTodo2 = {
-    description: 'jso',
-    id: 2,
-    completed: false,
-  };
-
-  const expected = [
-    {
-      id: 1,
+describe('Task one: add and delete', () => {
+  test('data is added into local storage', () => {
+    const mockTodo = {
       description: 'json data',
+      id: 1,
       completed: false,
-    },
-    {
+    };
+
+    const mockTodo2 = {
       description: 'jso',
       id: 2,
       completed: false,
-    },
-  ];
-  Storage.addTodo(mockTodo);
-  Storage.addTodo(mockTodo2);
-  console.log(Storage.getToDo());
-  expect(Storage.getToDo()).toEqual(expected);
-});
+    };
 
-test('Data is removed from local storage', () => {
-  const expected = [
-    {
-      description: 'json data',
-      id: 1,
-      completed: false,
-    },
-  ];
-  console.log(Storage.getToDo());
-  Storage.remove(2);
-  console.log(Storage.getToDo());
-  expect(Storage.getToDo()).toStrictEqual(expected);
+    const expected = [
+      {
+        id: 1,
+        description: 'json data',
+        completed: false,
+      },
+      {
+        description: 'jso',
+        id: 2,
+        completed: false,
+      },
+    ];
+    Storage.addTodo(mockTodo);
+    Storage.addTodo(mockTodo2);
+    console.log(Storage.getToDo());
+    expect(Storage.getToDo()).toEqual(expected);
+  });
+
+  test('Data is removed from local storage', () => {
+    const expected = [
+      {
+        description: 'json data',
+        id: 1,
+        completed: false,
+      },
+    ];
+    console.log(Storage.getToDo());
+    Storage.remove(2);
+    console.log(Storage.getToDo());
+    expect(Storage.getToDo()).toStrictEqual(expected);
+  });
 });
