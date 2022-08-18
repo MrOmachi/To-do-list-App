@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve --open",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "homepage": "https://MrOmachi.github.io/To-do-list-App.git",
   "devDependencies": {
     "@babel/core": "^7.18.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.18.6",
     "@babel/preset-env": "^7.18.10",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
@@ -30,6 +32,7 @@
     "eslint-plugin-import": "^2.26.0",
     "hint": "^7.1.1",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.3",
     "sass": "^1.54.3",
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1",
