@@ -54,6 +54,7 @@ class Storage {
       }
       localStorage.setItem('todoL', JSON.stringify(todoL));
     });
+    return todoL;
   }
 
   static removeCompleted() {
@@ -63,6 +64,15 @@ class Storage {
     localStorage.setItem('todoL', JSON.stringify(notCompleted));
     Storage.resetId();
     window.location.reload();
+  }
+
+  static deleteCompletedTask() {
+    const todoL = Storage.getToDo();
+
+    const notCompleted = todoL.filter((x) => x.completed === false);
+    localStorage.setItem('todoL', JSON.stringify(notCompleted));
+    Storage.resetId();
+    // window.location.reload();
   }
 
   static delete(id) {
@@ -75,6 +85,11 @@ class Storage {
         localStorage.setItem('todoL', JSON.stringify(arr));
       }
     });
+  }
+
+  static updateDescription(index, desc, tasks) {
+    tasks.description = desc;
+    return [tasks];
   }
 
   static editInput(id, e, tdHide, editPara) {
