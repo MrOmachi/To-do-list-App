@@ -22,7 +22,7 @@ class DomToDo {
     <td><p class='paragragh strike-through'> ${todo.description}</p><td>
     <td class='hide'>${todo.id}</td>
     <td><img class='kebabImg' src="${kebab}" alt="" /></td>
-    <td><a href="#" class='delete'>X</a><td>
+    <td><a href="#" class='delete'>🗑</a><td>
     `;
     } else {
       row.innerHTML = `
@@ -31,7 +31,7 @@ class DomToDo {
     <td class='hide'>${todo.id}</td>
     <td><img class='kebabImg' src="${kebab}" alt="" /></td>
 
-    <td><a href="#" class='delete'>X</a><td>
+    <td><a href="#" class='delete'>🗑</a><td>
 
     `;
     }
