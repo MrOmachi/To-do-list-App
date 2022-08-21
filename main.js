@@ -166,6 +166,21 @@ var Storage = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "checkboxNotCompleted",
+    value: function checkboxNotCompleted(id) {
+      var todoL = Storage.getToDo();
+      id = Number(id.textContent);
+      todoL.forEach(function (x) {
+        if (x.id === id) {
+          if (x.completed) {
+            x.completed = !x.completed;
+          }
+        }
+
+        localStorage.setItem('todoL', JSON.stringify(todoL));
+      });
+    }
+  }, {
     key: "removeCompleted",
     value: function removeCompleted() {
       var todoL = Storage.getToDo();
@@ -173,7 +188,6 @@ var Storage = /*#__PURE__*/function () {
         return x.completed === false;
       });
       localStorage.setItem('todoL', JSON.stringify(notCompleted));
-      Storage.resetId();
       window.location.reload();
     }
   }, {
