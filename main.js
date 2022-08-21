@@ -46,9 +46,9 @@ var DomToDo = /*#__PURE__*/function () {
       var row = document.createElement('tr');
 
       if (todo.completed) {
-        row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" checked /><td>\n    <td><p class='paragragh strike-through'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_2__, "\" alt=\"\" /></td>\n    <td><a href=\"#\" class='delete'>X</a><td>\n    ");
+        row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" checked /><td>\n    <td><p class='paragragh strike-through'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_2__, "\" alt=\"\" /></td>\n    <td><a href=\"#\" class='delete'>\uD83D\uDDD1</a><td>\n    ");
       } else {
-        row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" /><td>\n    <td><p class='paragragh'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_2__, "\" alt=\"\" /></td>\n\n    <td><a href=\"#\" class='delete'>X</a><td>\n\n    ");
+        row.innerHTML = "\n    <td> <input class='check'  id='checkBox' type=\"checkbox\" /><td>\n    <td><p class='paragragh'> ".concat(todo.description, "</p><td>\n    <td class='hide'>").concat(todo.id, "</td>\n    <td><img class='kebabImg' src=\"").concat(_assets_kebab_svg__WEBPACK_IMPORTED_MODULE_2__, "\" alt=\"\" /></td>\n\n    <td><a href=\"#\" class='delete'>\uD83D\uDDD1</a><td>\n\n    ");
       }
 
       ulContainer.appendChild(row);
@@ -106,7 +106,7 @@ var Storage = /*#__PURE__*/function () {
     value: function getToDo() {
       var todoL;
 
-      if (localStorage.getItem('todoL') === null) {
+      if (!localStorage.getItem('todoL')) {
         todoL = [];
       } else {
         todoL = JSON.parse(localStorage.getItem('todoL'));
@@ -164,21 +164,7 @@ var Storage = /*#__PURE__*/function () {
 
         localStorage.setItem('todoL', JSON.stringify(todoL));
       });
-    }
-  }, {
-    key: "checkboxNotCompleted",
-    value: function checkboxNotCompleted(id) {
-      var todoL = Storage.getToDo();
-      id = Number(id.textContent);
-      todoL.forEach(function (x) {
-        if (x.id === id) {
-          if (x.completed) {
-            x.completed = !x.completed;
-          }
-        }
-
-        localStorage.setItem('todoL', JSON.stringify(todoL));
-      });
+      return todoL;
     }
   }, {
     key: "removeCompleted",
@@ -188,7 +174,18 @@ var Storage = /*#__PURE__*/function () {
         return x.completed === false;
       });
       localStorage.setItem('todoL', JSON.stringify(notCompleted));
+      Storage.resetId();
       window.location.reload();
+    }
+  }, {
+    key: "deleteCompletedTask",
+    value: function deleteCompletedTask() {
+      var todoL = Storage.getToDo();
+      var notCompleted = todoL.filter(function (x) {
+        return x.completed === false;
+      });
+      localStorage.setItem('todoL', JSON.stringify(notCompleted));
+      Storage.resetId(); // window.location.reload();
     }
   }, {
     key: "delete",
@@ -201,6 +198,12 @@ var Storage = /*#__PURE__*/function () {
           localStorage.setItem('todoL', JSON.stringify(arr));
         }
       });
+    }
+  }, {
+    key: "updateDescription",
+    value: function updateDescription(index, desc, tasks) {
+      tasks.description = desc;
+      return [tasks];
     }
   }, {
     key: "editInput",
@@ -288,7 +291,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  height: 40px;\n  margin: auto;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 310px;\n  padding: 0 20px 0 5px;\n  margin: auto;\n  left: -30px;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;AACF;;AAEA;EACE,yBAAA;AACF;;AAEA;EACE,YAAA;EACA,iBAAA;EACA,YAAA;EACA,aAAA;EACA,sBAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,WAAA;EACA,uBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,kBAAA;EACA,6BAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,uBAAA;EACA,YAAA;EACA,YAAA;EACA,YAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;EACA,qBAAA;EACA,YAAA;EACA,WAAA;EACA,QAAA;EACA,kBAAA;EACA,YAAA;EACA,qBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,aAAA;AACF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  width: 360px;\n  padding-top: 50px;\n  margin: auto;\n  display: flex;\n  flex-direction: column;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable td {\n  width: 23.33%;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  height: 40px;\n  margin: auto;\n}\n\n#todo-input {\n  width: 100%;\n  height: 40px;\n  border: solid #f6f6f6;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 310px;\n  padding: 0 20px 0 5px;\n  margin: auto;\n  left: -30px;\n  right: 0;\n  position: absolute;\n  height: 30px;\n  border: solid #f6f6f6;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  background-color: white;\n  width: 360px;\n  margin: 190px auto;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 20px;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable a {\n  text-decoration: none;\n}\n\ntable td {\n  width: 23.33%;\n}\n\ntable td .paragraph {\n  color: red;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n  position: relative;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  margin-top: 20px;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  position: absolute;\n  left: 320px;\n  top: 3px;\n  height: 40px;\n  margin: auto;\n}\n\n#addBtn img {\n  width: 20px;\n}\n\n#todo-input {\n  width: 100%;\n  margin-bottom: 10px;\n  border: none;\n  height: 40px;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 310px;\n  padding: 0 20px 0 5px;\n  margin: auto;\n  left: -25px;\n  right: 0;\n  position: absolute;\n  height: 40px;\n  border: none;\n}\n\n.edit:focus {\n  outline: none;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}\n\ninput:focus {\n  outline: none;\n}", "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;AACF;;AAEA;EACE,yBAAA;AACF;;AAEA;EACE,uBAAA;EACA,YAAA;EACA,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,aAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,WAAA;EACA,uBAAA;AACF;;AAEA;EACE,qBAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,UAAA;AACF;;AAEA;EACE,kBAAA;EACA,6BAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;AACF;;AAEA;EACE,aAAA;EACA,kBAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,gBAAA;EACA,sBAAA;AACF;;AAEA;EACE,uBAAA;EACA,YAAA;EACA,kBAAA;EACA,WAAA;EACA,QAAA;EACA,YAAA;EACA,YAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,WAAA;EACA,mBAAA;EACA,YAAA;EACA,YAAA;AACF;;AAEA;EACE,WAAA;EACA,YAAA;EACA,YAAA;EACA,sBAAA;AACF;;AAEA;EACE,YAAA;EACA,qBAAA;EACA,YAAA;EACA,WAAA;EACA,QAAA;EACA,kBAAA;EACA,YAAA;EACA,YAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,aAAA;AACF;;AAEA;EACE,aAAA;AACF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  background-color: #f6f6f6;\n}\n\n.container {\n  background-color: white;\n  width: 360px;\n  margin: 190px auto;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 20px;\n}\n\n.to-do-list {\n  width: 100%;\n}\n\ntable {\n  width: 100%;\n  background-color: white;\n}\n\ntable a {\n  text-decoration: none;\n}\n\ntable td {\n  width: 23.33%;\n}\n\ntable td .paragraph {\n  color: red;\n}\n\n.strike-through {\n  font-style: italic;\n  text-decoration: line-through;\n}\n\ntable td img {\n  width: 30px;\n  margin: auto;\n}\n\nform {\n  display: flex;\n  position: relative;\n}\n\n.completedBtn {\n  width: 100%;\n  height: 40px;\n  border: none;\n  margin-top: 20px;\n  color: rgb(82, 75, 75);\n}\n\n#addBtn {\n  background-color: white;\n  border: none;\n  position: absolute;\n  left: 320px;\n  top: 3px;\n  height: 40px;\n  margin: auto;\n}\n\n#addBtn img {\n  width: 20px;\n}\n\n#todo-input {\n  width: 100%;\n  margin-bottom: 10px;\n  border: none;\n  height: 40px;\n}\n\n.clear-completed {\n  width: 100%;\n  height: 40px;\n  border: none;\n  color: rgb(64, 60, 60);\n}\n\n.edit {\n  width: 310px;\n  padding: 0 20px 0 5px;\n  margin: auto;\n  left: -25px;\n  right: 0;\n  position: absolute;\n  height: 40px;\n  border: none;\n}\n\n.edit:focus {\n  outline: none;\n}\n\n.hide {\n  display: none;\n}\n\n.editItem {\n  display: none;\n}\n\ninput:focus {\n  outline: none;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
