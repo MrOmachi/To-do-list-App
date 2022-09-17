@@ -99,7 +99,6 @@ class Storage {
       todoL.forEach((todo) => {
         if (id === todo.id) {
           const editItem = todo.description;
-
           const edit = document.getElementsByName('edit')[0];
 
           if (edit) {
@@ -117,8 +116,9 @@ class Storage {
             todo.description = input.value;
             localStorage.setItem('todoL', JSON.stringify(todoL));
           });
-
           tdHide.appendChild(input);
+
+
         }
       });
     }

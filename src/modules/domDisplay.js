@@ -1,8 +1,8 @@
-import Storage from './localStorage.js';
-import returnImg from '../assets/return.svg';
-import kebab from '../assets/kebab.svg';
+import Storage from "./localStorage.js";
+import returnImg from "../assets/return.svg";
+import kebab from "../assets/kebab.svg";
 
-document.getElementById('returnImg').src = returnImg;
+document.getElementById("returnImg").src = returnImg;
 class DomToDo {
   static displayToDo() {
     const todo = Storage.getToDo();
@@ -13,8 +13,8 @@ class DomToDo {
   }
 
   static addToDoList(todo) {
-    const ulContainer = document.getElementById('tbody');
-    const row = document.createElement('tr');
+    const ulContainer = document.getElementById("tbody");
+    const row = document.createElement("tr");
 
     if (todo.completed) {
       row.innerHTML = `
@@ -22,7 +22,7 @@ class DomToDo {
     <td><p class='paragragh strike-through'> ${todo.description}</p><td>
     <td class='hide'>${todo.id}</td>
     <td><img class='kebabImg' src="${kebab}" alt="" /></td>
-    <td><a href="#" class='delete'>🗑</a><td>
+    <td><a href="#" class='de'>🗑</a><td>
     `;
     } else {
       row.innerHTML = `
@@ -30,7 +30,6 @@ class DomToDo {
     <td><p class='paragragh'> ${todo.description}</p><td>
     <td class='hide'>${todo.id}</td>
     <td><img class='kebabImg' src="${kebab}" alt="" /></td>
-
     <td><a href="#" class='delete'>🗑</a><td>
 
     `;
@@ -40,13 +39,13 @@ class DomToDo {
   }
 
   static deleteTodo(el) {
-    if (el.classList.contains('delete')) {
+    if (el.classList.contains("delete")) {
       el.parentElement.parentElement.remove();
     }
   }
 
   static clearField() {
-    document.getElementById('todo-input').value = '';
+    document.getElementById("todo-input").value = "";
   }
 }
 
